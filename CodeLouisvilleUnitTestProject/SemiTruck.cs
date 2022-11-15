@@ -1,6 +1,9 @@
-﻿namespace CodeLouisvilleUnitTestProject
+﻿using System.Xml.Linq;
+
+namespace CodeLouisvilleUnitTestProject
 {
     public class SemiTruck : Vehicle
+
     {
         public List<CargoItem> Cargo { get; private set; }
 
@@ -9,8 +12,18 @@
         /// </summary>
         public SemiTruck()
         {
-            //YOUR CODE HERE: 
-            throw new NotImplementedException();
+            NumberOfTires = 18;
+            Cargo = new List<CargoItem>();
+
+        }
+        
+
+        //YOUR CODE HERE: 
+        public SemiTruck(int NumberOfTires)
+        {
+            NumberOfTires = 18;
+            Cargo = new List<CargoItem>();
+            
         }
 
         /// <summary>
@@ -20,7 +33,7 @@
         public void LoadCargo(CargoItem item)
         {
             //YOUR CODE HERE
-            throw new NotImplementedException();
+            Cargo.Add(item);
         }
             
         /// <summary>
@@ -29,10 +42,19 @@
         /// <param name="name">The name of the CargoItem to attempt to remove</param>
         /// <returns>The removed CargoItem</returns>
         /// <exception cref="ArgumentException">Thrown if no CargoItem in the Cargo matches the passed name</exception>
-        public CargoItem UnloadCargo(string name)
+        public List<CargoItem> UnloadCargo(string name)
         {
             //YOUR CODE HERE
-            throw new NotImplementedException();
+            var RemoveItem = Cargo.FirstOrDefault(CargoItem => CargoItem.Name == name);
+            if(RemoveItem != null)
+            {
+                Cargo.Remove(RemoveItem);
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+            return RemoveItem);
         }
 
         /// <summary>
@@ -43,7 +65,10 @@
         public List<CargoItem> GetCargoItemsByName(string name)
         {
             //YOUR CODE HERE
-            throw new NotImplementedException();
+            List<CargoItem> queryNames = new();
+            queryNames = Cargo.Where(CargoItem => CargoItem.Name == name).ToList();
+
+            return queryNames;
         }
 
         /// <summary>
@@ -54,7 +79,10 @@
         public List<CargoItem> GetCargoItemsByPartialDescription(string description)
         {
             //YOUR CODE HERE
-            throw new NotImplementedException();
+            List<CargoItem> queryDescription = new();
+            queryDescription = Cargo.Where(CargoItem => CargoItem.Description.Contains(description)).ToList();
+
+            return queryDescription;
         }
 
         /// <summary>
@@ -64,7 +92,10 @@
         public int GetTotalNumberOfItems()
         {
             //YOUR CODE HERE
-            throw new NotImplementedException();
+            var totalCargoItems = Cargo.Count;
+
+            return totalCargoItems;
+            //var totalFoos = fooInfo.Sum(childList => childList.Count);
         }
     }
 }

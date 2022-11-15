@@ -3,8 +3,8 @@
     public class Vehicle
     {
         #region Public Properties
-        public string Make { get; }
-        public string Model { get; }
+        public string Make { get; set; }
+        public string Model { get; set; }
         public double MilesPerGallon { get; set; }
         public double GasTankCapacity { get; init; }
         public int NumberOfTires { get; init; }
@@ -16,7 +16,8 @@
         #region Private Fields
         private double _gasRemaining;
         private double _mileage;
-        private bool _hasFlatTire;
+        public bool hasFlatTire;
+        // made public - renamed variable to omit underscore 
         #endregion
 
         #region Private Properties
@@ -70,7 +71,7 @@
             {
                 statusString = "Cannot drive, out of gas.";
             }
-            else if (_hasFlatTire)
+            else if (hasFlatTire)
             {
                 statusString = "Cannot drive due to flat tire.";
             }
@@ -98,21 +99,22 @@
                 bool gotFlat = GotFlatTire(miles);
                 if(gotFlat)
                 {
-                    _hasFlatTire = true;
+                    hasFlatTire = true;
                     statusString += " Oh no! Got a flat tire!";
                 }
             }
             return statusString;
         }
 
-        protected async Task ChangeTireAsync()
+        public async Task ChangeTireAsync()
+            // made public from "protected"
         {
-            if (!_hasFlatTire)
+            if (!hasFlatTire)
                 throw new NoTireToChangeException();
             else
             {
                 await Task.Delay(1000);
-                _hasFlatTire = false;
+                hasFlatTire = false;
             }
         }
 
