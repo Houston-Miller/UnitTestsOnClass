@@ -39,7 +39,7 @@ namespace CodeLouisvilleUnitTestProjectTests
 
 
             //assert
-            Assert.NotNull(vehicle);
+            vehicle.Should().NotBeNull();
         }
 
         //Verify that the parameterless AddGas method fills the gas tank

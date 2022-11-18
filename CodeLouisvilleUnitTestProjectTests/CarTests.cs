@@ -38,7 +38,12 @@ namespace CodeLouisvilleUnitTestProjectTests
         [Fact]
         public void IsValidModelForMakeAsyncNegative()
         {
-            throw new NotImplementedException();
+            //arrange
+            Car car = new Car(12, "Honda", "Camry", 20);
+            //act
+            Task<bool> validModel = car.IsValidModelForMakeAsync();
+            //assert
+            validModel.Should().Be(false);
         }
 
         //Negative Test: Test that passing a value for

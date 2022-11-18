@@ -71,19 +71,18 @@ namespace CodeLouisvilleUnitTestProject
             }
         }
 
-        public void RemovePassengers (int passengersToRemove)
+        public void RemovePassengers(int passengersToRemove)
         {
             //var milesPerGallon = MilesPerGallon;
-            NumberOfPassengers -= passengersToRemove;
-            MilesPerGallon = MilesPerGallon + (passengersToRemove * .2);
-            if (NumberOfPassengers < 0 )
+            if (passengersToRemove > NumberOfPassengers)
             {
-                NumberOfPassengers = 0;
+                passengersToRemove = NumberOfPassengers;
             }
-            //if (milesPerGallon > MilesPerGallon)
-            //{
-            //    milesPerGallon = MilesPerGallon;
-            //}    
+
+            NumberOfPassengers = NumberOfPassengers - passengersToRemove;
+            MilesPerGallon = MilesPerGallon + (passengersToRemove * .2);
+            
+
         }
     }
 }
