@@ -62,13 +62,13 @@ namespace CodeLouisvilleUnitTestProjectTests
             semiTruck.LoadCargo(stuff);
             semiTruck.UnloadCargo("stuff");
 
-            var removedItem = semiTruck.UnloadCargo("stuff");
-
+            List<CargoItem> Cargo = semiTruck.UnloadCargo("stuff");
+            
             //assert
             using (new AssertionScope())
             {
                 semiTruck.Cargo.Should().NotContain(stuff);
-                //removedItem.Should().Be(List<CargoItem>);
+                Cargo.Should().Contain(stuff);
             }
         }
 
@@ -79,11 +79,17 @@ namespace CodeLouisvilleUnitTestProjectTests
         {
             //arrange
             SemiTruck semiTruck = new SemiTruck();
+            CargoItem OtherStuff = new CargoItem()
+            { Name = "OtherStuff", Description = "The Good Stuff", Quantity = 5 };
+            CargoItem stuff = new CargoItem()
+            { Name = "stuff", Description = "ew, Stuff", Quantity = 1 };
             //act
-            semiTruck.UnloadCargo("stuff");
+            semiTruck.LoadCargo(OtherStuff);
+            //semiTruck.UnloadCargo("stuff");
             //assert
             semiTruck.Invoking(semiTruck => semiTruck.UnloadCargo("stuff"))
                 .Should().Throw<ArgumentException>();
+                
         }
 
         //Verify that getting cargo items by name returns all items
@@ -92,11 +98,13 @@ namespace CodeLouisvilleUnitTestProjectTests
         public void GetCargoItemsByNameWithValidName()
         {
             //arrange
-            throw new NotImplementedException();
+            SemiTruck semiTruck = new SemiTruck();
+            CargoItem OtherStuff = new CargoItem()
+            { Name = "OtherStuff", Description = "The Good Stuff", Quantity = 5 };
             //act
-
+            semiTruck.LoadCargo(OtherStuff);
             //assert
-
+            semiTruck.GetCargoItemsByName("OtherStuff").Should().Contain(OtherStuff);
         }
 
         //Verify that searching the Carto list for an item that does not
@@ -105,11 +113,13 @@ namespace CodeLouisvilleUnitTestProjectTests
         public void GetCargoItemsByNameWithInvalidName()
         {
             //arrange
-            throw new NotImplementedException();
+            SemiTruck semiTruck = new SemiTruck();
+            CargoItem OtherStuff = new CargoItem()
+            { Name = "OtherStuff", Description = "The Good Stuff", Quantity = 5 };
             //act
-
+            semiTruck.LoadCargo(OtherStuff);
             //assert
-
+            semiTruck.GetCargoItemsByName("stuff").Should().BeEmpty();
         }
 
         //Verify that searching the Cargo list by description for an item
@@ -118,11 +128,16 @@ namespace CodeLouisvilleUnitTestProjectTests
         public void GetCargoItemsByPartialDescriptionWithValidDescription()
         {
             //arrange
-            throw new NotImplementedException();
+            SemiTruck semiTruck = new SemiTruck();
+            CargoItem OtherStuff = new CargoItem()
+            { Name = "OtherStuff", Description = "The Good Stuff", Quantity = 5 };
+            CargoItem stuff = new CargoItem()
+            { Name = "stuff", Description = "ew, Stuff", Quantity = 1 };
             //act
-
+            semiTruck.LoadCargo(stuff);
+            semiTruck.LoadCargo(OtherStuff);
             //assert
-
+            semiTruck.GetCargoItemsByPartialDescription("The Good Stuff").Should().Contain(OtherStuff);
         }
 
         //Verify that searching the Carto list by description for an item
@@ -131,11 +146,16 @@ namespace CodeLouisvilleUnitTestProjectTests
         public void GetCargoItemsByPartialDescriptionWithInvalidDescription()
         {
             //arrange
-            throw new NotImplementedException();
+            SemiTruck semiTruck = new SemiTruck();
+            CargoItem OtherStuff = new CargoItem()
+            { Name = "OtherStuff", Description = "The Good Stuff", Quantity = 5 };
+            CargoItem stuff = new CargoItem()
+            { Name = "stuff", Description = "ew, Stuff", Quantity = 1 };
             //act
-
+            semiTruck.LoadCargo(stuff);
+            semiTruck.LoadCargo(OtherStuff);
             //assert
-
+            semiTruck.GetCargoItemsByPartialDescription("The Best Stuff").Should().BeEmpty();
         }
 
         //Verify that the method returns the sum of all quantities of all
@@ -144,11 +164,17 @@ namespace CodeLouisvilleUnitTestProjectTests
         public void GetTotalNumberOfItemsReturnsSumOfAllQuantities()
         {
             //arrange
-            throw new NotImplementedException();
+            SemiTruck semiTruck = new SemiTruck();
+            CargoItem OtherStuff = new CargoItem()
+            { Name = "OtherStuff", Description = "The Good Stuff", Quantity = 5 };
+            CargoItem stuff = new CargoItem()
+            { Name = "stuff", Description = "ew, Stuff", Quantity = 1 };
             //act
+            semiTruck.LoadCargo(stuff);
+            semiTruck.LoadCargo(OtherStuff);
 
             //assert
-
+            semiTruck.GetTotalNumberOfItems().Should().Be(6);
         }
     }
 }

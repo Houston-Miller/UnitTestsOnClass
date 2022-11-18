@@ -44,6 +44,7 @@ namespace CodeLouisvilleUnitTestProject
         /// <exception cref="ArgumentException">Thrown if no CargoItem in the Cargo matches the passed name</exception>
         public List<CargoItem> UnloadCargo(string name)
         {
+            //CargoItem RemoveItem = new CargoItem();
             //YOUR CODE HERE
             var RemoveItem = Cargo.FirstOrDefault(CargoItem => CargoItem.Name == name);
             if(RemoveItem != null)
@@ -54,7 +55,7 @@ namespace CodeLouisvilleUnitTestProject
             {
                 throw new ArgumentException();
             }
-            return RemoveItem);
+            return Cargo;
         }
 
         /// <summary>
@@ -65,10 +66,10 @@ namespace CodeLouisvilleUnitTestProject
         public List<CargoItem> GetCargoItemsByName(string name)
         {
             //YOUR CODE HERE
-            List<CargoItem> queryNames = new();
-            queryNames = Cargo.Where(CargoItem => CargoItem.Name == name).ToList();
+            List<CargoItem> itemNames = new();
+            itemNames = Cargo.Where(CargoItem => CargoItem.Name == name).ToList();
 
-            return queryNames;
+            return itemNames;
         }
 
         /// <summary>
@@ -79,10 +80,10 @@ namespace CodeLouisvilleUnitTestProject
         public List<CargoItem> GetCargoItemsByPartialDescription(string description)
         {
             //YOUR CODE HERE
-            List<CargoItem> queryDescription = new();
-            queryDescription = Cargo.Where(CargoItem => CargoItem.Description.Contains(description)).ToList();
+            List<CargoItem> itemDescription = new();
+            itemDescription = Cargo.Where(CargoItem => CargoItem.Description.Contains(description)).ToList();
 
-            return queryDescription;
+            return itemDescription;
         }
 
         /// <summary>
@@ -92,7 +93,8 @@ namespace CodeLouisvilleUnitTestProject
         public int GetTotalNumberOfItems()
         {
             //YOUR CODE HERE
-            var totalCargoItems = Cargo.Count;
+            //throw new NotImplementedException();
+            var totalCargoItems = Cargo.Sum(CargoItem => CargoItem.Quantity);
 
             return totalCargoItems;
             //var totalFoos = fooInfo.Sum(childList => childList.Count);

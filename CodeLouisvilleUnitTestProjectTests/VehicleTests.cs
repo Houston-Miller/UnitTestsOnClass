@@ -17,7 +17,7 @@ namespace CodeLouisvilleUnitTestProjectTests
             //arrange
                       
 
-            // throw new NotImplementedException();
+            //throw new NotImplementedException();
 
             //act
             Vehicle vehicle = new Vehicle();
@@ -162,10 +162,10 @@ namespace CodeLouisvilleUnitTestProjectTests
         }
 
         [Theory]
-        [InlineData(10, "Drove 10 miles using 0.5 gallons of gas.")]
-        [InlineData(100, "Drove 100 miles using 5 gallons of gas.")]
-        [InlineData(320, "Drove 320 miles, then ran out of gas.")]
-        public void DrivePositiveTests(double milesToDrive, String DriveStatus)
+        [InlineData(10, "Drove 10 miles using 0.5 gallons of gas.", 310, 10, "96.875%")]
+        [InlineData(100, "Drove 100 miles using 5 gallons of gas.", 220, 100, "68.75%")]
+        [InlineData(320, "Drove 320 miles, then ran out of gas.", 0, 320, "0%")]
+        public void DrivePositiveTests(double milesToDrive, String DriveStatus, double milesRemaining, double totalMilage, string gasRemaining)
         {
             //arrange
             Vehicle vehicle = new(4, 16, "Toyota", "Camry", 20);
@@ -180,6 +180,9 @@ namespace CodeLouisvilleUnitTestProjectTests
             using (new AssertionScope())
             {
                 status.Should().Contain(DriveStatus);
+                vehicle.MilesRemaining.Should().Be(milesRemaining);
+                vehicle.Mileage.Should().Be(totalMilage);
+                vehicle.GasLevel.Should().Be(gasRemaining);
             }
 
         }
